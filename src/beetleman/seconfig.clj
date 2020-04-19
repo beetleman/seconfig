@@ -5,4 +5,4 @@
 
 (defn -main
   [& args]
-  (cli/parse-opts args))
+  (cli/run args))
