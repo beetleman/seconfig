@@ -1,5 +1,6 @@
 {:paths   ["src"]
- :deps    {caesium {:mvn/version "0.13.0"}}
+ :deps    {caesium               {:mvn/version "0.13.0"}
+           org.clojure/tools.cli {:mvn/version "1.0.194"}}
  :aliases {:test     {:extra-deps {lambdaisland/kaocha {:mvn/version "1.0-612"}}
                       :main-opts  ["-m" "kaocha.runner"]}
            :outdated {:extra-deps {olical/depot {:mvn/version "1.8.4"}}

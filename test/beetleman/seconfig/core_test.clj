@@ -1,5 +1,5 @@
-(ns beetleman.seconfig-test
-  (:require [beetleman.seconfig :as sut]
+(ns beetleman.seconfig.core-test
+  (:require [beetleman.seconfig.core :as sut]
             [clojure.test :as t]))
 
 
