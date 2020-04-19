@@ -9,6 +9,15 @@
   (:import (org.apache.commons.codec.binary Hex)))
 
 
+(defn hex->bytes
+  [s]
+  (.decode (Hex.) (.getBytes s)))
+
+(defn bytes->hex
+  [b]
+  (Hex/encodeHexString b))
+
+
 (def prefix (str ::encrypted ":"))
 
 
@@ -26,16 +35,9 @@
 
 (defn keypair!
   []
-  (cb/keypair! (r/randombytes cb/seedbytes)))
-
-
-(defn hex->bytes
-  [s]
-  (.decode (Hex.) (.getBytes s)))
-
-(defn bytes->hex
-  [b]
-  (Hex/encodeHexString b))
+  (into {}
+        (map (fn [[k v]] [k (bytes->hex v)]))
+        (cb/keypair! (r/randombytes cb/seedbytes))))
 
 
 (defn- -encrypt-it?
@@ -52,32 +54,36 @@
 
 (defn- -encrypt-value
   [user-secret-key ci-public-key value]
-  (if (-encrypt-it? value)
-    (->> value
-         pr-str
-         (.getBytes)
-         (cb/encrypt ci-public-key
-                     user-secret-key
-                     (sb/int->nonce 0))
-         bytes->hex
-         -with-prefix)
-    (do
-      (log/warn "Value ignored" {:value value})
-      value)))
+  (let [user-secret-key (hex->bytes user-secret-key)
+        ci-public-key   (hex->bytes ci-public-key)]
+    (if (-encrypt-it? value)
+      (->> value
+           pr-str
+           (.getBytes)
+           (cb/encrypt ci-public-key
+                       user-secret-key
+                       (sb/int->nonce 0))
+           bytes->hex
+           -with-prefix)
+      (do
+        (log/warn "Value ignored" {:value value})
+        value))))
 
 
 (defn- -decrypt-value
   [user-public-key ci-secret-key value]
-  (if (-decrypt-it? value)
-    (->> value
-         -trim-prefix
-         hex->bytes
-         (cb/decrypt user-public-key
-                     ci-secret-key
-                     (sb/int->nonce 0))
-         (String.)
-         edn/read-string)
-    value))
+  (let [user-public-key (hex->bytes user-public-key)
+        ci-secret-key   (hex->bytes ci-secret-key)]
+    (if (-decrypt-it? value)
+      (->> value
+           -trim-prefix
+           hex->bytes
+           (cb/decrypt user-public-key
+                       ci-secret-key
+                       (sb/int->nonce 0))
+           (String.)
+           edn/read-string)
+      value)))
 
 
 (defn- -postwalk-values

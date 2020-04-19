@@ -4,8 +4,7 @@
 
 
 (t/deftest bytes->hex->bytes>hex-test
-  (let [{:keys [secret]} (sut/keypair!)
-        hex              (sut/bytes->hex secret)]
+  (let [hex (:secret (sut/keypair!))]
     (t/is (= hex
              (-> hex
                  sut/hex->bytes
