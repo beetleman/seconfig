@@ -1,0 +1,10 @@
+{:user
+ {:public
+  "453fc4d55e8dd0a7ec28560b4f421210e9a4f4e6106734e4ca240f4e27a0881f",
+  :secret
+  "fb53e17203d05e0ddf4d8afc7a0c146f50efd1ef52eca30be1019e823bbb39c2"},
+ :ci
+ {:public
+  "52493d3230da40f33f9fdb5163c63aaf384a16ef4ec11c2e90789edc3fe7bc1b",
+  :secret
+  "3def0300c2cc5e3e19596fd7c5f8f86341ee6d5c34c27f3a5a54af3ad3cdfcd4"}}
