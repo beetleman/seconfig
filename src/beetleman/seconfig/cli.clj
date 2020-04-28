@@ -6,13 +6,13 @@
 
 
 (defn encrypt
-  [{:keys [] :as opt}]
-  (println "TODO"))
+  [{:keys [input user-sk ci-pk]}]
+  (pprint/pprint (seconfig/encrypt user-sk ci-pk input)))
 
 
 (defn decrypt
-  [{:keys [] :as opt}]
-  (println "TODO"))
+  [{:keys [input user-pk ci-sk]}]
+  (pprint/pprint (seconfig/decrypt user-pk ci-sk input)))
 
 
 (defn keygen
@@ -32,28 +32,43 @@
    :commands
    [{:command     "encrypt"
      :description "Encrypt config"
-     :opts        [{:option "i" :as "Input path" :type :ednfile}
-                   {:option "user-sk"
-                    :env    "USER_SK"
-                    :as     "User secret key"
-                    :type   :string}
-                   {:option "ci-pk"
-                    :evn    "CI_PK"
-                    :as     "CI publick key"
-                    :type   :string}]
+     :opts        [{:option  "input"
+                    :short   "i"
+                    :as      "Input path"
+                    :default :present
+                    :type    :ednfile}
+                   {:option  "user-sk"
+                    :short   "u"
+                    :env     "USER_SK"
+                    :as      "User secret key"
+                    :default :present
+                    :type    :string}
+                   {:option  "ci-pk"
+                    :short   "c"
+                    :env     "CI_PK"
+                    :as      "CI publick key"
+                    :default :present
+                    :type    :string}]
      :runs        encrypt}
-   
     {:command     "decrypt"
      :description "Decrypt config"
-     :opts        [{:option "i" :as "Input path" :type :ednfile}
-                   {:option "user-pk"
-                    :env    "USER_PK"
-                    :as     "User public key"
-                    :type   :string}
-                   {:option "ci-sk"
-                    :env    "CI_SK"
-                    :as     "CI secret key"
-                    :type   :string}]
+     :opts        [{:option  "input"
+                    :short   "i"
+                    :as      "Input path"
+                    :default :present
+                    :type    :ednfile}
+                   {:option  "user-pk"
+                    :short   "u"
+                    :env     "USER_PK"
+                    :as      "User public key"
+                    :default :present
+                    :type    :string}
+                   {:option  "ci-sk"
+                    :short   "c"
+                    :env     "CI_SK"
+                    :as      "CI secret key"
+                    :default :present
+                    :type    :string}]
      :runs        decrypt}
    
     {:command     "keygen"

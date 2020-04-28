@@ -65,9 +65,7 @@
                        (sb/int->nonce 0))
            bytes->hex
            -with-prefix)
-      (do
-        (log/warn "Value ignored" {:value value})
-        value))))
+      value)))
 
 
 (defn- -decrypt-value
