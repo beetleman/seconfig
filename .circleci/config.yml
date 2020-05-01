@@ -1,0 +1,16 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/clojure:openjdk-11-tools-deps
+    steps:
+      - checkout
+      - run: sudo apt install libsodium-dev
+      - restore_cache:
+          key: seconfig-{{ checksum "deps.edn" }}
+      - run: clojure -A:test -Stree
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: seconfig-{{ checksum "deps.edn" }}
+      - run: make test
