@@ -1,3 +1,4 @@
 /.nrepl-port
 /.cpcache/
 !.dir-locals.el
+/test-results/

@@ -3,10 +3,12 @@
            cli-matic {:mvn/version "0.3.11"}}
  :aliases {:dev      {:extra-deps {org.clojure/test.check {:mvn/version
                                                            "1.0.0"}}}
-           :test     {:extra-deps {lambdaisland/kaocha    {:mvn/version
-                                                           "1.0-612"}
-                                   org.clojure/test.check {:mvn/version
-                                                           "1.0.0"}}
+           :test     {:extra-deps {lambdaisland/kaocha           {:mvn/version
+                                                                  "1.0-612"}
+                                   lambdaisland/kaocha-junit-xml {:mvn/version
+                                                                  "0.0-70"}
+                                   org.clojure/test.check        {:mvn/version
+                                                                  "1.0.0"}}
                       :main-opts  ["-m" "kaocha.runner"]}
            :uberjar  {:extra-deps {seancorfield/depstar {:mvn/version "1.0.94"}}
                       :main-opts  ["-m" "hf.depstar.uberjar"
