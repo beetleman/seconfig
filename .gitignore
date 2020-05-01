@@ -2,3 +2,4 @@
 /.cpcache/
 !.dir-locals.el
 /test-results/
+/seconfig.jar

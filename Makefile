@@ -1,10 +1,11 @@
-.PHONY: test test-watch clean
-seconfig.jar: pom.xml test
+.PHONY: test-ci test test-watch clean
+seconfig.jar: pom.xml test-ci
 	clojure -A:uberjar
 pom.xml:
 	clojure -Spom
 clean:
 	rm -f seconfig.jar
+	rm -rf test-results
 test:
 	clojure -A:test
 test-ci:

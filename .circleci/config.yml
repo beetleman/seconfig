@@ -13,7 +13,10 @@ jobs:
           paths:
             - ~/.m2
           key: seconfig-{{ checksum "deps.edn" }}
-      - run: make test-ci
+      - run: make seconfig.jar
+      - store_artifacts:
+          destination: seconfig.jar
+          path: seconfig.jar
       - store_test_results:
           path: test-results
  
