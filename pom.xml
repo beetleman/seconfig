@@ -14,7 +14,7 @@
     <dependency>
       <groupId>cli-matic</groupId>
       <artifactId>cli-matic</artifactId>
-      <version>0.3.11</version>
+      <version>0.4.3</version>
     </dependency>
     <dependency>
       <groupId>caesium</groupId>
